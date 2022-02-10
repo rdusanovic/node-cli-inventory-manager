@@ -1,0 +1,27 @@
+{
+  "name": "ibm-interview-project",
+  "version": "1.0.0",
+  "description": "project for IBM interview",
+  "main": "./controller/controller.js",
+  "dependencies": {
+    "axios": "^0.25.0",
+    "body-parser": "^1.19.1",
+    "csv-parse": "^5.0.4",
+    "express": "~4.17.2",
+    "yargs": "^17.3.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Robert Dusanovic",
+  "license": "ISC",
+  "bin": {
+    "load": "./bin/load.js",
+    "inventory": "./bin/inventory.js",
+    "order": "./bin/order.js",
+    "argtest": "./bin/argtest.js"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1"
+  }
+}
