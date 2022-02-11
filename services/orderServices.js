@@ -4,14 +4,19 @@ function computeOrder(orderData,inventoryMap) {
     // This is an instance of the change-making problem
     var order = {}
     for (const [key,value] of Object.entries(orderData)) {
-        console.log(key, value)
         //Give order size, and package sizes to the solver
         var code = key
+        // Assert code is in inventory
+        if (!(code in inventoryMap)) {
+            return "Some order codes are not in the inventory"
+        }
         var packages = changeMaking(value, Object.keys(inventoryMap[code]))
+        // Handle order unsatisfiable
+        if (packages.length == 0) {
+            return "Order unsatisfiable"
+        }
         order[code] = {"packages": packages}
     }
-    // Handle edge case where order is not satisfiable
-
     return orderToString(order,inventoryMap)
 }
 
@@ -39,10 +44,11 @@ function changeMaking(amount, packages) {
             var packageSize = packages[j]
             // If there is an exact package, we are done
             if (packageSize == orderSize) {
-                table[i] = 1
-                solution[i] = [packageSize]
+                min = 1
+                minPackages = [packageSize]
                 break;
             }
+            // Otherwise, check previous order sizes
             var prevOrderSize = orderSize - packageSize
             var prevOrderIndex = prevOrderSize - 1
 
@@ -62,8 +68,7 @@ function changeMaking(amount, packages) {
         }
 
     }
-    //if table[amount] == 0, then not possible
-    // return [table , solution]
+    // Return the desired solution
     return solution.at(-1)
 }
 
@@ -74,10 +79,10 @@ function orderToString(order,inventoryMap) {
     for (var i = 0; i < orderCodes.length; i ++) {
         var code = orderCodes[i]
         var packages = order[code].packages
-        console.log("packages", packages)
+        // console.log("packages", packages)
         str += code + ', $'
         var costs = inventoryMap[code]
-        console.log(code, costs)
+        // console.log(code, costs)
         var cost = calculateOrderCost(packages,costs)
         str += (cost / 100.0).toString() + ', packages: '
         str += packagesToString(packages)
