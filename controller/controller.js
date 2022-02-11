@@ -21,11 +21,11 @@ app.get('/inventory', function(req,res) {
 
 app.post('/load', function(req,res) {
     file = req.body.file;
-    loadServices.loadData(file,inventoryMap)
+    const loadMessage = loadServices.loadData(file,inventoryMap)
 
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain')
-    res.end("Loaded items successfully")
+    res.end(loadMessage)
 })
 
 app.post('/order', function(req,res) {

@@ -20,4 +20,5 @@ axios.post(url,
 })
  .then(res => {
    console.log(res.data);
- });
+ })
+ .catch();
