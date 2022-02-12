@@ -8,6 +8,8 @@ The goal of this application is to provide a command line interface for an inven
 
 The application allows users to load an inventory from a .csv file with the 'load' command, read back the ingested inventory through the 'inventory' command, and process orders through the 'order' command.
 
+Shell commands (load, inventory, order) send http requests to the server (controller), which asks a service (loadService, inventoryService, orderService) to process the request before returning the response to the terminal.
+
 ## Installation
 in the root folder
 
