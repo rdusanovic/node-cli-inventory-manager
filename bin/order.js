@@ -9,7 +9,7 @@ const options = yargs
   .usage("Usage: -o <JSON-order>")
   .option("o", { 
     alias: "order", 
-    describe: "The filename of the file to load into the inventory", 
+    describe: "Bakery order. Takes a JSON string in the form \"{\\\"<code>\\\": count,...}\" where quotes around codes must be escaped\n E.g \"{\\\"VS\\\":10}\"", 
     type: "string", 
     demandOption: true})
   .coerce("o", function (arg) {

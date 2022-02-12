@@ -35,13 +35,4 @@ app.post('/order', function(req,res) {
     res.end(orderString);
 })
 
-app.post('/argtest', function(req,res) {
-    console.log("Hello")
-    console.log(req.body.data)
-    console.log(typeof req.body.data)
-    // var j = JSON.parse(req.body.data)
-    // console.log(JSON.parse(req.body.data))
-    // console.log(j.test)
-    res.end()
-})
 
