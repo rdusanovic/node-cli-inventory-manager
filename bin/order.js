@@ -1,5 +1,10 @@
 #!/usr/bin/env node
 
+// Command line script to calculate the package structure of an order
+// Sends a POST request to the '/order' endpoint, specifying the order required
+// Prints the result to console
+// See README for detailed documentation of use
+
 const yargs = require("yargs");
 const axios = require("axios");
 

@@ -1,5 +1,10 @@
 #!/usr/bin/env node
 
+// Command line script to load the inventory from a csv file
+// Sends a POST request to the '/load' endpoint, specifying the file to read in
+// Prints the result to console
+// Run 'load --help' for usage help
+
 const yargs = require("yargs");
 const axios = require("axios");
 
