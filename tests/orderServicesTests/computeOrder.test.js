@@ -6,9 +6,9 @@ test('Correct order string is returned', () => {
         "BM": { 1: 100, 2: 100, 5: 100}
     }
     orderData = {"VS": 12, "BM": 5}
-    orderString = "VS, $2, packages: 1x5, 1x7\nBM, $1, packages: 1x5"
-    const res = orderServices.computeOrder(orderData,inventoryMap)
-    expect(res).toBe(orderString);
+    order = ["VS, $2, packages: 1x5, 1x7\nBM, $1, packages: 1x5", 200]
+    res = orderServices.computeOrder(orderData,inventoryMap)
+    expect(res).toStrictEqual(order);
 })
 
 test('Invalid order code', () => {
@@ -16,9 +16,9 @@ test('Invalid order code', () => {
         "VS": { 2: 100, 5: 100, 7: 100},
     }
     orderData = {"BM": 2}
-    errorString = "Some order codes are not in the inventory"
-    const res = orderServices.computeOrder(orderData,inventoryMap)
-    expect(res).toBe(errorString)
+    error = ["Some order codes are not in the inventory", 400]
+    res = orderServices.computeOrder(orderData,inventoryMap)
+    expect(res).toStrictEqual(error)
 })
 
 test('Unsatisfiable order', () => {
@@ -26,8 +26,8 @@ test('Unsatisfiable order', () => {
         "VS": { 2: 100}
     }
     orderData = {"VS": 3}
-    errorString = "Order unsatisfiable"
-    const res = orderServices.computeOrder(orderData,inventoryMap)
-    expect(res).toBe(errorString)
+    error = ["Order unsatisfiable", 200]
+    res = orderServices.computeOrder(orderData,inventoryMap)
+    expect(res).toStrictEqual(error)
 })
 
