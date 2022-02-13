@@ -38,7 +38,7 @@ Open a separate terminal to run CLI commands
 Loads an inventory from a .csv file.
 Expects csv to have three columns; code (string), count (int), price (int)
 
-Usage: load -f $pathToFile
+Usage: load -f path-to-file
   
 Example:
   
