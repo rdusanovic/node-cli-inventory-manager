@@ -2,7 +2,7 @@
 
 ## Intro
 
-This code runs a node js command line application.
+This code contains a node js command line application.
 
 The goal of this application is to provide a command line interface for an inventory management and order processing system.
 
