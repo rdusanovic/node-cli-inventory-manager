@@ -4,6 +4,7 @@
 // Sends a GET request to the '/inventory' endpoint
 // Prints the result to console
 
+
 const axios = require("axios");
 
 const url = "http://localhost:3000/inventory";

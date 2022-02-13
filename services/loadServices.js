@@ -1,6 +1,8 @@
 var fs = require('fs');
 var parser = require('csv-parse/sync');
 
+// Main service function
+// Handles the incoming request, returns a message and HTTP code
 function loadData(filename, inventoryMap) {
     if (Object.keys(inventoryMap).length > 0) {
         return ["Inventory already populated", 200]
@@ -18,6 +20,7 @@ function loadData(filename, inventoryMap) {
     }
 }
 
+// Helper function to ingest csv data into inventoryMap
 function ingestData(data, inventoryMap) {
     for (var i = 1; i < data.length; i++) {
         var code = data[i][0]

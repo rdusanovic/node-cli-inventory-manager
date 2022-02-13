@@ -16,6 +16,7 @@ const server = app.listen(3000)
 
 // Allows user to view the state of the inventory
 app.get('/inventory', function(req,res) {
+    // Pass request to inventoryServices
     const inventoryString = inventoryServices.inventoryToString(inventoryMap)
 
     res.statusCode = 200;
@@ -35,6 +36,7 @@ app.post('/load', function(req,res) {
         return
     }
 
+    // Pass request to loadServices
     const [loadMessage, statusCode] = loadServices.loadData(file,inventoryMap)
 
     res.statusCode = statusCode;
@@ -45,6 +47,7 @@ app.post('/load', function(req,res) {
 // Allows users to submit orders from the inventory, returns an order with minimal packaging
 // JSON input is checked by command line script
 app.post('/order', function(req,res) {
+    // Pass request to orderServices
     const [orderString, statusCode] = orderServices.computeOrder(req.body.order,inventoryMap)
 
     res.statusCode = statusCode;

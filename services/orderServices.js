@@ -1,15 +1,17 @@
 
-
+// Main service function
+// Handles incoming order request, returns string representing an optimal order and HTTP code
+// The order packaging problem is an instance of the change-making problem
 function computeOrder(orderData,inventoryMap) {
-    // This is an instance of the change-making problem
+    
     var order = {}
     for (const [key,value] of Object.entries(orderData)) {
-        //Give order size, and package sizes to the solver
         var code = key
         // Assert code is in inventory
         if (!(code in inventoryMap)) {
             return ["Some order codes are not in the inventory", 400]
         }
+        //Give order size, and package sizes to the solver
         var packages = changeMaking(value, Object.keys(inventoryMap[code]))
         // Handle order unsatisfiable
         if (packages.length == 0) {
@@ -20,6 +22,7 @@ function computeOrder(orderData,inventoryMap) {
     return [orderToString(order,inventoryMap), 200]
 }
 
+// Helper function to calculate the cost of an order
 function calculateOrderCost(order, packageCosts) {
     var cost = 0
     for (var i = 0; i < order.length; i++) {
@@ -28,15 +31,20 @@ function calculateOrderCost(order, packageCosts) {
     return cost
 }
 
+// Implementation of the change-making algorithm
+// For package sizes [p1, p2, ..., pn] and order size p
+// Uses dynamic programming to achieve an O(p x n) solution
+// Checks whether order can be satisfied with a single package
+// Otherwise checks the solution for package sizes p-p1, p-p2,...,p-pn
+// And returns the minimum + 1
 function changeMaking(amount, packages) {
-    //Dynamic programming solution
     var table = []
     var solution = []
     for (var i = 0; i < amount; i ++)
     {
         table[i] = 0
         solution[i] = []
-        // Size for index i
+        // Package size for index i
         var orderSize = i + 1
         var min = Number.MAX_VALUE
         var minPackages = []
@@ -62,6 +70,7 @@ function changeMaking(amount, packages) {
                 }
             }
         }
+        // Updates the table if a solution is found
         if (min < Number.MAX_VALUE) {
             table[i] = min
             solution[i] = minPackages
@@ -72,16 +81,15 @@ function changeMaking(amount, packages) {
     return solution.at(-1)
 }
 
+// Maps the order to a string 
 function orderToString(order,inventoryMap) {
     var str = ''
     var orderCodes = Object.keys(order)
     for (var i = 0; i < orderCodes.length; i ++) {
         var code = orderCodes[i]
         var packages = order[code].packages
-        // console.log("packages", packages)
         str += code + ', $'
         var costs = inventoryMap[code]
-        // console.log(code, costs)
         var cost = calculateOrderCost(packages,costs)
         str += (cost / 100.0).toString() + ', packages: '
         str += packagesToString(packages)
@@ -92,6 +100,8 @@ function orderToString(order,inventoryMap) {
     return str
 }
 
+// Maps the packages in an order to a string
+// Helper function for orderToString
 function packagesToString(packages) {
     var packageAgg = {}
     for (var i = 0; i < packages.length; i++) {
