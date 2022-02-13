@@ -3,18 +3,18 @@ var parser = require('csv-parse/sync');
 
 function loadData(filename, inventoryMap) {
     if (Object.keys(inventoryMap).length > 0) {
-        return "Inventory already populated"
+        return ["Inventory already populated", 200]
     }
     try {
         var data = fs.readFileSync(filename, 'utf8')
     } catch (error) {
-        return "Unable to read file"
+        return ["Unable to read file", 400]
     }
     var parsedData = parser.parse(data,{columns: false, trim: true})
     if (ingestData(parsedData,inventoryMap)) {
-        return "Loaded items successfully"
+        return ["Loaded items successfully", 200]
     } else {
-        return "Invalid product specification"
+        return ["Invalid product specification", 400]
     }
 }
 

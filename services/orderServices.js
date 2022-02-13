@@ -8,16 +8,16 @@ function computeOrder(orderData,inventoryMap) {
         var code = key
         // Assert code is in inventory
         if (!(code in inventoryMap)) {
-            return "Some order codes are not in the inventory"
+            return ["Some order codes are not in the inventory", 400]
         }
         var packages = changeMaking(value, Object.keys(inventoryMap[code]))
         // Handle order unsatisfiable
         if (packages.length == 0) {
-            return "Order unsatisfiable"
+            return ["Order unsatisfiable", 200]
         }
         order[code] = {"packages": packages}
     }
-    return orderToString(order,inventoryMap)
+    return [orderToString(order,inventoryMap), 200]
 }
 
 function calculateOrderCost(order, packageCosts) {
@@ -71,7 +71,6 @@ function changeMaking(amount, packages) {
     // Return the desired solution
     return solution.at(-1)
 }
-
 
 function orderToString(order,inventoryMap) {
     var str = ''

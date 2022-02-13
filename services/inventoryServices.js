@@ -1,7 +1,7 @@
 function inventoryToString(inventoryMap) {
     // Check if inventory is empty
     if (Object.keys(inventoryMap).length == 0) {
-        return "The bakery is empty\n"
+        return "The bakery is empty"
     }
 
     var str = ''

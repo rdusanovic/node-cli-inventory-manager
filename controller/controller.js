@@ -1,11 +1,11 @@
 // The controller handles incoming HTTP requests and utilizes services to fulfil the requests.
 
-var express = require('express');
-var bodyParser = require('body-parser');
-var inventoryServices = require('../services/inventoryServices.js')
-var loadServices = require('../services/loadServices.js')
-var orderServices = require('../services/orderServices.js')
-var app = express();
+const express = require('express');
+const bodyParser = require('body-parser');
+const inventoryServices = require('../services/inventoryServices.js')
+const loadServices = require('../services/loadServices.js')
+const orderServices = require('../services/orderServices.js')
+const app = express();
 app.use(bodyParser.json());
 
 // In memory data structure that holds the state of the inventory
@@ -32,21 +32,22 @@ app.post('/load', function(req,res) {
         res.statusCode = 400;
         res.setHeader('Content-Type', 'text/plain')
         res.end("File must be in csv format")
+        return
     }
 
-    const loadMessage = loadServices.loadData(file,inventoryMap)
+    const [loadMessage, statusCode] = loadServices.loadData(file,inventoryMap)
 
-    res.statusCode = 200;
+    res.statusCode = statusCode;
     res.setHeader('Content-Type', 'text/plain')
     res.end(loadMessage)
 })
 
 // Allows users to submit orders from the inventory, returns an order with minimal packaging
+// JSON input is checked by command line script
 app.post('/order', function(req,res) {
-    // Sanitize the input?
-    const orderString = orderServices.computeOrder(req.body.order,inventoryMap)
+    const [orderString, statusCode] = orderServices.computeOrder(req.body.order,inventoryMap)
 
-    res.statusCode = 200;
+    res.statusCode = statusCode;
     res.setHeader('Content-Type', 'text/plain')
     res.end(orderString);
 })
