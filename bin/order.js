@@ -3,7 +3,7 @@
 // Command line script to calculate the package structure of an order
 // Sends a POST request to the '/order' endpoint, specifying the order required
 // Prints the result to console
-// See README for detailed documentation of use
+// Run 'order --help' for usage help
 
 const yargs = require("yargs");
 const axios = require("axios");
@@ -27,4 +27,8 @@ axios.post(url,
 })
  .then(res => {
    console.log(res.data);
- });
+ })
+ .catch(err => {
+  console.error(err.response.data)
+});
+ 
