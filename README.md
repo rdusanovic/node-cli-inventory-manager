@@ -11,7 +11,7 @@ The application allows users to load an inventory from a .csv file with the 'loa
 Shell commands (load, inventory, order) send http requests to the server (controller), which asks a service (loadService, inventoryService, orderService) to process the request before returning the response to the terminal.
 
 ## Installation
-in the root folder
+While in the root folder
 
 To install node js dependencies
 ```bash
