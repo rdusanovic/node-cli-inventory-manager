@@ -18,20 +18,18 @@ To install node js dependencies
 > npm install .
 ```
 
-To install command line scripts
+To install terminal commands
 ```bash
 > npm install -g .
 ```
 
 ## Usage
 
-In the root directory run
+Start the node server
 
 ```bash 
 > node .
 ```
-
-to start your server
 
 Open a separate terminal to run CLI commands
 
