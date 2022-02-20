@@ -1,4 +1,4 @@
-# IBM Garage Coding Challenge
+# NodeJs CLI Inventory Manager
 
 ## Intro
 
