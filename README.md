@@ -144,6 +144,6 @@ npm uninstall -g .
 
 To clear command line scripts
 ```bash
-npm uninstall -g ibm-interview-project
+npm uninstall -g node-cli-inventory-manager
 ```
 
